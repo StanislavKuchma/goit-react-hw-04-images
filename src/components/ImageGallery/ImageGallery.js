@@ -19,8 +19,9 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
       setImages([]);
     }
     setLoading(true);
-    fetchImages().then(data => {
-      setImages(state => [...state, ...data]);
+    fetchImages({ query, page }).then(data => {
+      const d = data;
+      setImages(state => [...state, ...d]);
     });
   }, [query, page]);
 
