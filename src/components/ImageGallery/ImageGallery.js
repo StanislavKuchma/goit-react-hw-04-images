@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ImSpinner } from 'react-icons/im';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import axios from 'axios';
-import Notiflix from 'notiflix';
+// import Notiflix from 'notiflix';
 
 const ImageGallery = ({ query, page, updateData, showButton }) => {
   const [images, setImages] = useState([]);
