@@ -11,6 +11,7 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // const date = [];
     if (query === '') {
       return;
     }
@@ -18,7 +19,9 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
       setImages([]);
     }
     setLoading(true);
-    fetchImages();
+    fetchImages().then(data => {
+      setImages(state => [...state, ...data]);
+    });
   }, [query, page]);
 
   async function fetchImages() {
@@ -42,8 +45,8 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
           "We're sorry, but you've reached the end of search results."
         );
       }
-
-      setImages(state => [...state, ...response.data.hits]);
+      return response.data.hits;
+      // setImages(state => [...state, ...response.data.hits]);
     } catch (error) {
       showButton(false);
       Notiflix.Notify.failure(
