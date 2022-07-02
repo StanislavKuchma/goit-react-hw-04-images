@@ -41,7 +41,7 @@ const App = () => {
         query={query}
         page={page}
         updateData={openModal}
-        onShow={addButton}
+        showButton={addButton}
       />
 
       {showButton && <Button onClick={addMoreImage} />}
