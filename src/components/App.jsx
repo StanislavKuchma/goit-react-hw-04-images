@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import './styles.css';
 
 const App = () => {
-  const [arrayImages, setArrayImages] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [img, setImg] = useState('');
@@ -17,7 +16,6 @@ const App = () => {
   const handleFormSubmit = searchQuery => {
     setQuery(searchQuery);
     setPage(1);
-    setArrayImages([]);
     setShowButton(true);
   };
   const toggleModal = () => {
@@ -40,7 +38,6 @@ const App = () => {
       <Searchbar onSubmit={handleFormSubmit} />
 
       <ImageGallery
-        array={arrayImages}
         query={query}
         page={page}
         updateData={openModal}

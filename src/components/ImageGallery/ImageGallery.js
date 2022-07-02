@@ -6,8 +6,8 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const ImageGallery = ({ array, query, page, updateData, onShow }) => {
-  const [images, setImages] = useState(array);
+const ImageGallery = ({ query, page, updateData, onShow }) => {
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
