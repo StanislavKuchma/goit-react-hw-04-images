@@ -20,7 +20,7 @@ const ImageGallery = ({ array, query, page, updateData, onShow }) => {
     setLoading(true);
     fetchImages();
     onShow(true);
-  }, [query, page, fetchImages, onShow]);
+  }, [query, page]);
 
   async function fetchImages() {
     try {
