@@ -1,63 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import Modal from './Modal/Modal';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
-import { ToastContainer} from 'react-toastify';
-import './styles.css'
+import { ToastContainer } from 'react-toastify';
+import './styles.css';
 
-export class App extends React.Component {
-  state = {
-  page: 1,  
-  query: '',
-  showModal: false,
-  showButton: false,
-  }
-  handleFormSubmit = searchQuery => {
-    this.setState({ query: searchQuery, page: 1,showButton: true });
-  }
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal
-    }));
-  }
-  openModal = largeImageURL => {
-    this.setState({ img: largeImageURL });
-    this.toggleModal();
-  }  
-  addMoreImage = () => {
-    this.setState(prevState=>{return{page: prevState.page +=1}})
-  }
-  showButton = data => {
-this.setState({ showButton: data });
-  }
+const App = () => {
+  const [arrayImages, setArrayImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [query, setQuery] = useState('');
+  const [img, setImg] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
-  render() {
-    const { showModal,showButton } = this.state;
-    return (
-<>
-        <ToastContainer/> 
-        <Searchbar onSubmit={this.handleFormSubmit}/>
+  const handleFormSubmit = searchQuery => {
+    setQuery(searchQuery);
+    setPage(1);
+    setArrayImages([]);
+    setShowButton(true);
+  };
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+  const openModal = largeImageURL => {
+    setImg(largeImageURL);
+    toggleModal();
+  };
+  const addMoreImage = () => {
+    setPage(state => (state += 1));
+  };
+  const addButton = data => {
+    setShowButton(data);
+  };
 
-           <ImageGallery
-          query={this.state.query}
-          page={this.state.page}
-          updateData={this.openModal}
-          onShow={this.showButton}
-        />
+  return (
+    <>
+      <ToastContainer />
+      <Searchbar onSubmit={handleFormSubmit} />
 
-          {/* <Button onClick={this.addMoreImage}/> */}
-    
-        {showButton && <Button
-          
-          onClick={this.addMoreImage}
-          />} 
-        {showModal && <Modal
-          onClose={this.toggleModal}
-          image ={this.state.img}
-          />}
-  </>
-     
+      <ImageGallery
+        array={arrayImages}
+        query={query}
+        page={page}
+        updateData={openModal}
+        onShow={addButton}
+      />
+
+      {showButton && <Button onClick={addMoreImage} />}
+      {showModal && <Modal onClose={toggleModal} image={img} />}
+    </>
   );
 };
-}
+
+export default App;
