@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ImSpinner } from 'react-icons/im';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import axios from 'axios';
-// import Notiflix from 'notiflix';
+import Notiflix from 'notiflix';
 
 const ImageGallery = ({ query, page, updateData, showButton }) => {
   const [images, setImages] = useState([]);
@@ -24,7 +24,32 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
         `https://pixabay.com/api/?key=26970425-ccd1377388b76d413dfca163b&q=${query}&image_type=foto&orientation=horizontal&safesearch=true&per_page=12&page=${page}`
       )
       .then(response => {
+        showButton(true);
+        if (response.data.total === 0) {
+          Notiflix.Notify.failure(
+            `Sorry, there are no images matching your search query. Please try again. `
+          );
+          showButton(false);
+          return;
+        }
+
+        if (page * 12 > response.data.total) {
+          showButton(false);
+          Notiflix.Notify.failure(
+            "We're sorry, but you've reached the end of search results."
+          );
+        }
+
         setImages(state => [...state, ...response.data.hits]);
+      })
+      .catch(function () {
+        showButton(false);
+        Notiflix.Notify.failure(
+          `Sorry, there are no images matching your search query. Please try again. `
+        );
+      })
+      .then(function () {
+        setLoading(false);
       });
   }, [query, page]);
 
@@ -84,36 +109,3 @@ ImageGallery.propTypes = {
   loading: PropTypes.bool,
 };
 export default ImageGallery;
-
-// const fetchImages = () => {
-//   try {
-//     showButton(true);
-//     const response = axios.get(
-//       `https://pixabay.com/api/?key=26970425-ccd1377388b76d413dfca163b&q=${query}&image_type=foto&orientation=horizontal&safesearch=true&per_page=12&page=${page}`
-//     );
-
-//     if (response.data.total === 0) {
-//       Notiflix.Notify.failure(
-//         `Sorry, there are no images matching your search query. Please try again. `
-//       );
-//       showButton(false);
-//       return;
-//     }
-
-//     if (page * 12 > response.data.total) {
-//       showButton(false);
-//       Notiflix.Notify.failure(
-//         "We're sorry, but you've reached the end of search results."
-//       );
-//     }
-
-//     setImages(state => [...state, ...response.data.hits]);
-//   } catch (error) {
-//     showButton(false);
-//     Notiflix.Notify.failure(
-//       `Sorry, there are no images matching your search query. Please try again. `
-//     );
-//   } finally {
-//     setLoading(false);
-//   }
-// };
