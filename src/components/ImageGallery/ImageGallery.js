@@ -17,6 +17,11 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
     if (page === 1) {
       setImages([]);
     }
+    // console.log(images.length);
+    // if ((images = [])) {
+    //   showButton(false);
+    // }
+
     setLoading(true);
 
     axios
@@ -43,7 +48,7 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
         setImages(state => [...state, ...response.data.hits]);
       })
       .catch(function () {
-        showButton(false);
+        // showButton(false);
         Notiflix.Notify.failure(
           `Sorry, there are no images matching your search query. Please try again. `
         );
@@ -51,7 +56,7 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
       .then(function () {
         setLoading(false);
       });
-  }, [query, page]);
+  }, [query, page, showButton]);
 
   // async function fetchImages() {
   //   try {
