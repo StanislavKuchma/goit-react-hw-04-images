@@ -17,11 +17,6 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
     if (page === 1) {
       setImages([]);
     }
-    // console.log(images.length);
-    // if ((images = [])) {
-    //   showButton(false);
-    // }
-
     setLoading(true);
 
     axios
@@ -58,39 +53,6 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
       });
   }, [query, page, showButton]);
 
-  // async function fetchImages() {
-  //   try {
-  //     showButton(true);
-  //     const response = await axios.get(
-  //       `https://pixabay.com/api/?key=26970425-ccd1377388b76d413dfca163b&q=${query}&image_type=foto&orientation=horizontal&safesearch=true&per_page=12&page=${page}`
-  //     );
-
-  //     if (response.data.total === 0) {
-  //       Notiflix.Notify.failure(
-  //         `Sorry, there are no images matching your search query. Please try again. `
-  //       );
-  //       showButton(false);
-  //       return;
-  //     }
-
-  //     if (page * 12 > response.data.total) {
-  //       showButton(false);
-  //       Notiflix.Notify.failure(
-  //         "We're sorry, but you've reached the end of search results."
-  //       );
-  //     }
-
-  //     setImages(state => [...state, ...response.data.hits]);
-  //   } catch (error) {
-  //     showButton(false);
-  //     Notiflix.Notify.failure(
-  //       `Sorry, there are no images matching your search query. Please try again. `
-  //     );
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
-  // console.log(images)
   return (
     <>
       {loading && <ImSpinner size="64" />}
