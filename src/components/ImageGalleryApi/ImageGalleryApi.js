@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import s from './ImageGallery.module.css';
 import PropTypes from 'prop-types';
 import { ImSpinner } from 'react-icons/im';
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
+import Gallery from 'components/Gallery/Gallery';
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
@@ -56,18 +55,7 @@ const ImageGallery = ({ query, page, updateData, showButton }) => {
   return (
     <>
       {loading && <ImSpinner size="64" />}
-      {
-        <ul className={s.ImageGallery}>
-          {images.map(data => (
-            <ImageGalleryItem
-              key={data.id}
-              webformatURL={data.webformatURL}
-              largeImageURL={data.largeImageURL}
-              updateData={updateData}
-            />
-          ))}
-        </ul>
-      }
+      <Gallery images={images} updateData={updateData} />
     </>
   );
 };

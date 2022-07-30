@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import Modal from './Modal/Modal';
 import Button from './Button/Button';
-import ImageGallery from './ImageGallery/ImageGallery';
+import ImageGallery from './ImageGalleryApi/ImageGalleryApi';
 import { ToastContainer } from 'react-toastify';
 import './styles.css';
 
